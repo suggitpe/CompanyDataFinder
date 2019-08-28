@@ -1,0 +1,18 @@
+apply plugin: 'org.springframework.boot'
+
+bootJar {
+    archiveBaseName = 'company-data-finder-app'
+    version = '0.0.1'
+}
+
+dependencies {
+
+    implementation libs.springBootStarterWeb,
+            libs.springBootThymeLeafStarter,
+            libs.jacksonDatatypeJsr310,
+            libs.jacksonKotlin
+
+    testImplementation libs.test.restAssured
+
+    runtime project(':company-data-finder-lib')
+}

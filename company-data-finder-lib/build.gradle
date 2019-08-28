@@ -1,4 +1,8 @@
-jar{
-    baseName = 'company-data-finder-lib'
+jar {
+    archiveBaseName = 'company-data-finder-lib'
     version = '0.0.1'
+}
+
+dependencies {
+    implementation libs.springBootStarterWeb
 }
