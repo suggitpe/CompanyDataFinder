@@ -4,20 +4,17 @@ import org.slf4j.LoggerFactory
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
-import org.springframework.http.MediaType.APPLICATION_OCTET_STREAM
 import org.springframework.http.MediaType.APPLICATION_PDF
 import org.springframework.http.client.BufferingClientHttpRequestFactory
 import org.springframework.http.client.SimpleClientHttpRequestFactory
 import org.springframework.web.client.RestTemplate
+import org.suggs.companydatafinderlib.converters.CompaniesHouseDocumentHttpMessageConverter
 import org.suggs.companydatafinderlib.domain.CompaniesHouseCompanyProfile
 import org.suggs.companydatafinderlib.domain.CompaniesHouseDocument
 import org.suggs.companydatafinderlib.domain.CompaniesHouseDocumentMetadata
 import org.suggs.companydatafinderlib.domain.CompaniesHouseFilingHistoryList
 import org.suggs.companydatafinderlib.interceptors.CompaniesHouseAuthInterceptor
 import org.suggs.companydatafinderlib.interceptors.RequestResponseLoggingInterceptor
-import java.io.File
-import java.nio.file.Files
-import java.nio.file.StandardOpenOption
 
 class CompaniesHouseProxy {
 
@@ -30,6 +27,7 @@ class CompaniesHouseProxy {
         template.interceptors = listOf(
                 RequestResponseLoggingInterceptor(),
                 CompaniesHouseAuthInterceptor("_JMZGS85jZjkf5sAQsM8ESbFdzo9sEyUqnnQIXmM"))
+        template.messageConverters.add(CompaniesHouseDocumentHttpMessageConverter())
         return template
     }
 
@@ -69,17 +67,18 @@ class CompaniesHouseProxy {
         }
     }
 
-    fun getDocumentFor(documentUrl: String): CompaniesHouseDocument? {
+    fun getDocumentFor(documentUrl: String): CompaniesHouseDocument {
         log.debug("Retrieving document from url $documentUrl")
+        return when (val document = restTemplate.exchange(documentUrl, HttpMethod.GET, createPdfAcceptingHeaders(), CompaniesHouseDocument::class.java).body) {
+            null -> throw java.lang.IllegalStateException("Could not retrieve document from url $documentUrl")
+            else -> document
+        }
+    }
+
+    private fun createPdfAcceptingHeaders(): HttpEntity<String> {
         val headers = HttpHeaders()
-        headers.accept = listOf(APPLICATION_PDF, APPLICATION_OCTET_STREAM)
-
-        val doc = restTemplate.exchange(documentUrl, HttpMethod.GET, HttpEntity<ByteArray>(headers), ByteArray::class.java)
-
-        log.debug("we have a $doc")
-        val document = doc.body
-        File("/tmp/doc.pdf").writeBytes(document!!)
-        return null
+        headers.accept = listOf(APPLICATION_PDF)
+        return HttpEntity(headers)
     }
 }
 

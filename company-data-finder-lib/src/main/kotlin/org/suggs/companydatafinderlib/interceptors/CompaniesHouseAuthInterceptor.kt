@@ -6,7 +6,7 @@ import org.springframework.http.client.ClientHttpRequestInterceptor
 import org.springframework.http.client.ClientHttpResponse
 import java.util.*
 
-class CompaniesHouseAuthInterceptor(val username: String) : ClientHttpRequestInterceptor {
+class CompaniesHouseAuthInterceptor(private val username: String) : ClientHttpRequestInterceptor {
     override fun intercept(request: HttpRequest, body: ByteArray, execution: ClientHttpRequestExecution): ClientHttpResponse {
         val auth = """$username:"""
         val encodedAuth = Base64.getEncoder().encodeToString(auth.toByteArray())

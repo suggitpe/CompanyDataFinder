@@ -1,6 +1,5 @@
 package org.suggs.companydatafinderlib.interceptors
 
-import jdk.jfr.ContentType
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpRequest
 import org.springframework.http.MediaType
@@ -24,7 +23,7 @@ class RequestResponseLoggingInterceptor : ClientHttpRequestInterceptor {
 
     @Throws(IOException::class)
     private fun logRequest(request: HttpRequest, body: ByteArray) {
-        if (log.isDebugEnabled()) {
+        if (log.isDebugEnabled) {
             log.debug("===========================request begin================================================")
             log.debug("URI         : {}", request.uri)
             log.debug("Method      : {}", request.method)
@@ -36,15 +35,14 @@ class RequestResponseLoggingInterceptor : ClientHttpRequestInterceptor {
 
     @Throws(IOException::class)
     private fun logResponse(response: ClientHttpResponse) {
-        if (log.isDebugEnabled()) {
+        if (log.isDebugEnabled) {
             log.debug("============================response begin==========================================")
             log.debug("Status code  : {}", response.statusCode)
             log.debug("Status text  : {}", response.statusText)
             log.debug("Headers      : {}", response.headers)
-            if(response.headers.contentType!!.compareTo(MediaType.APPLICATION_JSON) == 0){
+            if (response.headers.contentType!!.compareTo(MediaType.APPLICATION_JSON) == 0) {
                 log.debug("Response body: {}", StreamUtils.copyToString(response.body, Charset.defaultCharset()))
-            }
-            else{
+            } else {
                 log.debug("Response body: {huge blob of data}")
             }
             log.debug("=======================response end=================================================")
