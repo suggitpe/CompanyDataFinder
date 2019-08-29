@@ -53,17 +53,19 @@ class CompaniesHouseCompanyDataParseTest {
         |"registered_office_is_in_dispute":false,
         |"date_of_cessation":"2018-07-10",
         |"can_file":false}""".trimMargin()
+
     private val mapper = ObjectMapper().registerModule(KotlinModule())
     private val log = LoggerFactory.getLogger(this::class.java)
 
     @Test
     fun `can create companies house response from JSON`() {
-        val response = mapper.readValue<CompaniesHouseCompanyData>(JSON)
+        val response = mapper.readValue<CompaniesHouseCompanyProfile>(JSON)
         log.debug(response.toString())
         assertAll(
                 Executable { assertThat(response.companyName).isNotNull() },
                 Executable { assertThat(response.companyNumber).isEqualTo("00000006") },
-                Executable { assertThat(response.dateOfCreation).isNotNull() }
+                Executable { assertThat(response.dateOfCreation).isNotNull() },
+                Executable { assertThat(response.registeredAddress).isNotNull() }
 
         )
     }
