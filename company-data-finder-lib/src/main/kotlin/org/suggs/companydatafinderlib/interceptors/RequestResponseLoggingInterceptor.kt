@@ -25,10 +25,10 @@ class RequestResponseLoggingInterceptor : ClientHttpRequestInterceptor {
     private fun logRequest(request: HttpRequest, body: ByteArray) {
         if (log.isDebugEnabled) {
             log.debug("===========================request begin================================================")
-            log.debug("URI         : {}", request.uri)
-            log.debug("Method      : {}", request.method)
-            log.debug("Headers     : {}", request.headers)
-            log.debug("Request body: {}", String(body, Charset.forName("UTF-8")))
+            log.debug("URI         : ${request.uri}")
+            log.debug("Method      : ${request.method}")
+            log.debug("Headers     : ${request.headers}")
+            log.debug("Request body: ${String(body, Charset.forName("UTF-8"))}")
             log.debug("==========================request end================================================")
         }
     }
@@ -37,11 +37,11 @@ class RequestResponseLoggingInterceptor : ClientHttpRequestInterceptor {
     private fun logResponse(response: ClientHttpResponse) {
         if (log.isDebugEnabled) {
             log.debug("============================response begin==========================================")
-            log.debug("Status code  : {}", response.statusCode)
-            log.debug("Status text  : {}", response.statusText)
-            log.debug("Headers      : {}", response.headers)
+            log.debug("Status code  : ${response.statusCode}")
+            log.debug("Status text  : ${response.statusText}")
+            log.debug("Headers      : ${response.headers}")
             if (response.headers.contentType!!.compareTo(MediaType.APPLICATION_JSON) == 0) {
-                log.debug("Response body: {}", StreamUtils.copyToString(response.body, Charset.defaultCharset()))
+                log.debug("Response body: ${StreamUtils.copyToString(response.body, Charset.defaultCharset())}")
             } else {
                 log.debug("Response body: {huge blob of data}")
             }

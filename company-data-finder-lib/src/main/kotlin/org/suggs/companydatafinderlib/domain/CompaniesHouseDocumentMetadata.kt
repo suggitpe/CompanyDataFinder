@@ -12,7 +12,7 @@ data class CompaniesHouseDocumentMetadata(@JsonProperty("company_number") val co
                                           @JsonProperty("links") val links: Map<String, String>){
     fun documentUrl(): String{
         return when(val documentLink = links["document"]){
-            null -> throw IllegalStateException("""Could not find document link """)
+            null -> throw IllegalStateException("Could not find document link in document metadata")
             else -> documentLink
         }
     }

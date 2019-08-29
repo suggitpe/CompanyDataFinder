@@ -18,7 +18,7 @@ data class CompaniesHouseFilingHistoryList(@JsonProperty("start_index") val star
 
     fun latestFiledItemUrl(): String {
         return when (val url = items.maxBy { it.date }!!.links["document_metadata"]) {
-            null -> throw IllegalStateException("""Could not extract document metadata link from filing history list""")
+            null -> throw IllegalStateException("Could not extract document metadata link from filing history list")
             else -> url
         }
     }

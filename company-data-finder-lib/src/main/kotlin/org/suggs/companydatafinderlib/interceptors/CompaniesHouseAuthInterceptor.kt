@@ -8,9 +8,9 @@ import java.util.*
 
 class CompaniesHouseAuthInterceptor(private val username: String) : ClientHttpRequestInterceptor {
     override fun intercept(request: HttpRequest, body: ByteArray, execution: ClientHttpRequestExecution): ClientHttpResponse {
-        val auth = """$username:"""
+        val auth = "$username:"
         val encodedAuth = Base64.getEncoder().encodeToString(auth.toByteArray())
-        request.headers.add("Authorization", """Basic $encodedAuth""")
+        request.headers.add("Authorization", "Basic $encodedAuth")
         return execution.execute(request, body)
     }
 }

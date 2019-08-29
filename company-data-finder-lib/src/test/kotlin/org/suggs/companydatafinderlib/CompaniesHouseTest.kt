@@ -14,32 +14,32 @@ class CompaniesHouseTest {
 
     @Test fun `retrieve data using companies house ID`() {
         val companyData = companiesHouse.getCompanyDataFor("02868209")
-        log.debug("""Companies House Data: $companyData""")
+        log.debug("Companies House Data: $companyData")
         assertThat(companyData).isNotNull
     }
 
     @Test fun `retrieve incorporation filing history using companies house ID`() {
         val filingHistory = companiesHouse.getCompanyFilingHistoryFor("02868209", "incorporation")
-        log.debug("""Filing History: $filingHistory""")
+        log.debug("Filing History: $filingHistory")
         assertThat(filingHistory).isNotNull
     }
 
     @Test fun `retrieves address filing history using companies house ID`() {
         val filingHistory = companiesHouse.getCompanyFilingHistoryFor("02868209", "address")
-        log.debug("""Filing History: $filingHistory""")
+        log.debug("Filing History: $filingHistory")
         assertThat(filingHistory).isNotNull
     }
 
     @Test fun `read document metadata from the last filed incorporation information to retrieve the document`() {
         val document = retrieveLastFiledDocumentForCategory("02868209", "incorporation")
         log.debug(document.toString())
-        document.writeTo("/tmp/02868209-incorporation.pdf")
+        //document.writeTo("/tmp/02868209-incorporation.pdf")
     }
 
     @Test fun `read document metadata from the last filed address information to retrieve the document`() {
         val document = retrieveLastFiledDocumentForCategory("02868209", "address")
         log.debug(document.toString())
-        document.writeTo("/tmp/02868209-address.pdf")
+        //document.writeTo("/tmp/02868209-address.pdf")
     }
 
     private fun retrieveLastFiledDocumentForCategory(companyId: String, category: String): CompaniesHouseDocument {
