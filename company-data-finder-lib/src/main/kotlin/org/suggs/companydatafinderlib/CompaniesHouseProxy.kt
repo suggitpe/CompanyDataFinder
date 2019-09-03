@@ -16,7 +16,7 @@ import org.suggs.companydatafinderlib.domain.CompaniesHouseFilingHistoryList
 import org.suggs.companydatafinderlib.interceptors.CompaniesHouseAuthInterceptor
 import org.suggs.companydatafinderlib.interceptors.RequestResponseLoggingInterceptor
 
-class CompaniesHouseProxy {
+class CompaniesHouseProxy(private val authUsername: String) {
 
     private val restTemplate = createRestTemplateWithInterceptorsForAuthentication()
     private val log = LoggerFactory.getLogger(this::class.java)
@@ -26,7 +26,7 @@ class CompaniesHouseProxy {
         val template = RestTemplate(factory)
         template.interceptors = listOf(
                 RequestResponseLoggingInterceptor(),
-                CompaniesHouseAuthInterceptor("_JMZGS85jZjkf5sAQsM8ESbFdzo9sEyUqnnQIXmM"))
+                CompaniesHouseAuthInterceptor(authUsername))
         template.messageConverters.add(CompaniesHouseDocumentHttpMessageConverter())
         return template
     }
@@ -67,12 +67,24 @@ class CompaniesHouseProxy {
         }
     }
 
+    /**
+     * Retrieves a document based on a defined url.
+     */
     fun getDocumentFor(documentUrl: String): CompaniesHouseDocument {
         log.debug("Retrieving document from url $documentUrl")
         return when (val document = restTemplate.exchange(documentUrl, HttpMethod.GET, createPdfAcceptingHeaders(), CompaniesHouseDocument::class.java).body) {
             null -> throw java.lang.IllegalStateException("Could not retrieve document from url $documentUrl")
             else -> document
         }
+    }
+
+    /**
+     * Navigates the various interfaces to find the latest filed document for a given company and criteria.
+     */
+    fun getLatestFiledDocumentForCategory(companyId: String, category: String): CompaniesHouseDocument {
+        val documentMetadataLink = getCompanyFilingHistoryFor(companyId, category).latestFiledItemUrl()
+        val documentUrl = getDocumentMetadataFor(documentMetadataLink).documentUrl()
+        return getDocumentFor(documentUrl)
     }
 
     private fun createPdfAcceptingHeaders(): HttpEntity<String> {

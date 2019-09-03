@@ -10,7 +10,7 @@ import java.io.ByteArrayOutputStream
 
 
 /**
- * HttpMessageConverter specifically for PDF documents`.
+ * HttpMessageConverter specifically for PDF documents.
  */
 class CompaniesHouseDocumentHttpMessageConverter : AbstractHttpMessageConverter<CompaniesHouseDocument>(MediaType.APPLICATION_PDF) {
 
