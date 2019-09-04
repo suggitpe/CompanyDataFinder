@@ -1,4 +1,4 @@
-package org.suggs.companydatafinderlib
+package org.suggs.companydatafinderlib.companieshouse
 
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpEntity
@@ -8,13 +8,13 @@ import org.springframework.http.MediaType.APPLICATION_PDF
 import org.springframework.http.client.BufferingClientHttpRequestFactory
 import org.springframework.http.client.SimpleClientHttpRequestFactory
 import org.springframework.web.client.RestTemplate
-import org.suggs.companydatafinderlib.converters.CompaniesHouseDocumentHttpMessageConverter
-import org.suggs.companydatafinderlib.domain.CompaniesHouseCompanyProfile
-import org.suggs.companydatafinderlib.domain.CompaniesHouseDocument
-import org.suggs.companydatafinderlib.domain.CompaniesHouseDocumentMetadata
-import org.suggs.companydatafinderlib.domain.CompaniesHouseFilingHistoryList
-import org.suggs.companydatafinderlib.interceptors.CompaniesHouseAuthInterceptor
-import org.suggs.companydatafinderlib.interceptors.RequestResponseLoggingInterceptor
+import org.suggs.companydatafinderlib.companieshouse.converters.CompaniesHouseDocumentHttpMessageConverter
+import org.suggs.companydatafinderlib.companieshouse.domain.CompaniesHouseCompanyProfile
+import org.suggs.companydatafinderlib.companieshouse.domain.CompaniesHouseDocument
+import org.suggs.companydatafinderlib.companieshouse.domain.CompaniesHouseDocumentMetadata
+import org.suggs.companydatafinderlib.companieshouse.domain.CompaniesHouseFilingHistoryList
+import org.suggs.companydatafinderlib.companieshouse.interceptors.CompaniesHouseAuthInterceptor
+import org.suggs.companydatafinderlib.companieshouse.interceptors.RequestResponseLoggingInterceptor
 
 class CompaniesHouseProxy(private val authUsername: String) {
 

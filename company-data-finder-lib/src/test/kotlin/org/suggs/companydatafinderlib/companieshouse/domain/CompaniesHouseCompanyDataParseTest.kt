@@ -1,4 +1,4 @@
-package org.suggs.companydatafinderlib.domain
+package org.suggs.companydatafinderlib.companieshouse.domain
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.KotlinModule

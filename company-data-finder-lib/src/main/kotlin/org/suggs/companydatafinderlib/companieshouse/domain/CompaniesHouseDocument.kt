@@ -1,4 +1,4 @@
-package org.suggs.companydatafinderlib.domain
+package org.suggs.companydatafinderlib.companieshouse.domain
 
 import org.slf4j.LoggerFactory
 import org.springframework.http.MediaType

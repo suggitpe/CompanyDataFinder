@@ -1,4 +1,4 @@
-package org.suggs.companydatafinderlib.domain
+package org.suggs.companydatafinderlib.companieshouse.domain
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import java.util.*

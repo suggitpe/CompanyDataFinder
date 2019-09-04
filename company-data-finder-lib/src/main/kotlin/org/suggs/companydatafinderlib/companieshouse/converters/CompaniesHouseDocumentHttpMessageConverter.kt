@@ -1,11 +1,11 @@
-package org.suggs.companydatafinderlib.converters
+package org.suggs.companydatafinderlib.companieshouse.converters
 
 import org.springframework.http.HttpInputMessage
 import org.springframework.http.HttpOutputMessage
 import org.springframework.http.MediaType
 import org.springframework.http.converter.AbstractHttpMessageConverter
 import org.springframework.util.StreamUtils
-import org.suggs.companydatafinderlib.domain.CompaniesHouseDocument
+import org.suggs.companydatafinderlib.companieshouse.domain.CompaniesHouseDocument
 import java.io.ByteArrayOutputStream
 
 
