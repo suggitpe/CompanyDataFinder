@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test
 import org.slf4j.LoggerFactory
 import org.yaml.snakeyaml.Yaml
 
-
 @DisplayName("Companies House Proxy allows us to")
 class CompaniesHouseTest {
 
