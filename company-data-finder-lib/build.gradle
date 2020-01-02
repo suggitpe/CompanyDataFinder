@@ -8,7 +8,7 @@ configurations {
 }
 
 task genJaxb {
-    ext.sourcesDir = "${buildDir}/generated-sources/jaxb"
+    ext.sourcesDir = "$rootDir/company-data-finder-lib/src/main/java/"
     ext.classesDir = "${buildDir}/classes/jaxb"
     ext.schema = "https://ws1.webservices.nl/soap_doclit?wsdl"
 
@@ -56,6 +56,5 @@ dependencies {
     jaxb 'com.sun.xml.bind:jaxb-impl:2.2.7-b41'
     jaxb 'javax.xml.bind:jaxb-api:2.2.7'
     jaxb 'com.sun.activation:javax.activation:1.2.0'
-    compile project(':company-data-finder-lib:main')
 }
 
