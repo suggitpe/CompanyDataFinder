@@ -9,6 +9,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.function.Executable
 import org.slf4j.LoggerFactory
+import org.suggs.companydatafinderlib.companyinfo.domain.CompanyinfoCompanyProfile
 
 @DisplayName("Companyinfo Response contains company data directly from KVK")
 class CompanyInfoCompanyDataParseTest {

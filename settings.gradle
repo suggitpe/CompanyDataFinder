@@ -1,2 +1,2 @@
 include 'company-data-finder-lib',
-'company-data-finder-app'
+'company-data-finder-app', 'company-data-finder-lib:main', 'company-data-finder-lib:test'
