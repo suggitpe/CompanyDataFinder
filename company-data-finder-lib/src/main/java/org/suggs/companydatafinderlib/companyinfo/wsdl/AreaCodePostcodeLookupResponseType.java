@@ -37,7 +37,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "areaCodePostcodeLookupResponseType", propOrder = {
 
 })
-public class AreaCodePostcodeLookupResponseType {
+public class    AreaCodePostcodeLookupResponseType {
 
     @XmlElement(required = true)
     protected AreaCodeArray out;
