@@ -1,22 +1,21 @@
-package org.suggs.companydatafinderlib.kvk
+package org.suggs.companydatafinderlib.cro
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.slf4j.LoggerFactory
-import org.suggs.companydatafinderlib.cro.AppConfig
 import org.yaml.snakeyaml.Yaml
 
-@DisplayName("KVK Proxy allows us to")
-class KVKTest {
+@DisplayName("CRO Proxy allows us to")
+class CROTest {
 
     private val log = LoggerFactory.getLogger(this::class.java)
     private val config = loadConfig()
-    private var kVK = KVKProxy(config.get("user"), config.get("pass"))
+    private var cRO = CROProxy(config.get("cro_key"))
 
-    @Test fun `retrieve data using kvk ID`() {
-        val companyData = kVK.getCompanyDataFor("69599084")
-        log.debug("KVK Data: $companyData")
+    @Test fun `retrieve data using cro ID`() {
+        val companyData = cRO.getCompanyDataFor("83740")
+        log.debug("CRO Data: $companyData")
         assertThat(companyData).isNotNull
     }
 

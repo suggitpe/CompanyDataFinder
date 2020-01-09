@@ -1,3 +1,8 @@
 auth: "_JMZGS85jZjkf5sAQsM8ESbFdzo9sEyUqnnQIXmM"
 user: "testourapis"
 pass: "testourapis"
+cro_user: "test@cro.ie"
+cro_pass: "da093a04-c9d7-46d7-9c83-9c9f8630d5e0"
+cro_key: "test@cro.ie:da093a04-c9d7-46d7-9c83-9c9f8630d5e0"
+cro_key1: "dGVzdEBjcm8uaWU6ZGEwOTNhMDQtYzlkNy00NmQ3LTljODMtOWM5Zjg2MzBkNWUw"
+cro_key2: "dGVzdEBjcm8uaWU6ZGEwOTNhMDQtYzlkNy00NmQ3LTljODMtOWM5Zjg2MzBkNWUwOg"

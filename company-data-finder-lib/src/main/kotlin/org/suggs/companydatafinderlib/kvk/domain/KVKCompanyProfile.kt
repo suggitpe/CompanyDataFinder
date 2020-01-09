@@ -7,7 +7,7 @@ import java.util.*
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-data class KVKCompanyProfile(@JsonProperty("data") val kvkData: KVKData )
+data class KVKCompanyProfile(@JsonProperty("data") val kvkData: KVKData)
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
