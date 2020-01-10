@@ -53,8 +53,8 @@ subprojects{
     }
 
     ext {
-        sourceCompatibility = 11
-        targetCompatibility = 11
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
     }
 
     test {
@@ -65,13 +65,13 @@ subprojects{
     compileKotlin {
         kotlinOptions {
             freeCompilerArgs = ["-Xjsr305=strict"]
-            jvmTarget = "11"
+            jvmTarget = "1.8"
         }
     }
     compileTestKotlin {
         kotlinOptions {
             freeCompilerArgs = ["-Xjsr305=strict"]
-            jvmTarget = "11"
+            jvmTarget = "1.8"
         }
     }
 }
