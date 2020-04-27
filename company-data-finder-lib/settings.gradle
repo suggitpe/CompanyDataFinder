@@ -1,0 +1,3 @@
+rootProject.name = 'company-data-finder-lib'
+include ':main',
+        ':test'
