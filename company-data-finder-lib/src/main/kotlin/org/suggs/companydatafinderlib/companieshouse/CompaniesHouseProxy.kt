@@ -14,12 +14,13 @@ import org.suggs.companydatafinderlib.companieshouse.domain.CompaniesHouseDocume
 import org.suggs.companydatafinderlib.companieshouse.domain.CompaniesHouseDocumentMetadata
 import org.suggs.companydatafinderlib.companieshouse.domain.CompaniesHouseFilingHistoryList
 import org.suggs.companydatafinderlib.companieshouse.interceptors.CompaniesHouseAuthInterceptor
-import org.suggs.companydatafinderlib.companieshouse.interceptors.RequestResponseLoggingInterceptor
+import org.suggs.companydatafinderlib.util.RequestResponseLoggingInterceptor
 
 class CompaniesHouseProxy(private val authUsername: String) {
 
     private val restTemplate = createRestTemplateWithInterceptorsForAuthentication()
     private val log = LoggerFactory.getLogger(this::class.java)
+    private val urlRoot = "https://api.companieshouse.gov.uk"
 
     private fun createRestTemplateWithInterceptorsForAuthentication(): RestTemplate {
         val factory = BufferingClientHttpRequestFactory(SimpleClientHttpRequestFactory())
@@ -36,7 +37,7 @@ class CompaniesHouseProxy(private val authUsername: String) {
      */
     fun getCompanyDataFor(companyId: String): CompaniesHouseCompanyProfile {
         log.debug("Retrieving company profile data for company id $companyId")
-        val url = "https://api.companieshouse.gov.uk/company/$companyId"
+        val url = "$urlRoot/company/$companyId"
         return when (val profile = restTemplate.getForObject(url, CompaniesHouseCompanyProfile::class.java)) {
             null -> throw IllegalStateException("Could not create company profile for company number $companyId")
             else -> profile
@@ -49,7 +50,7 @@ class CompaniesHouseProxy(private val authUsername: String) {
      */
     fun getCompanyFilingHistoryFor(companyId: String, category: String, itemsPerPage: Int = 1): CompaniesHouseFilingHistoryList {
         log.debug("Retrieving $category filing history for company number $companyId")
-        val url = "https://api.companieshouse.gov.uk/company/$companyId/filing-history?category=$category&items_per_page=$itemsPerPage"
+        val url = "$urlRoot/company/$companyId/filing-history?category=$category&items_per_page=$itemsPerPage"
         return when (val filingHistory = restTemplate.getForObject(url, CompaniesHouseFilingHistoryList::class.java)) {
             null -> throw IllegalStateException("Could not create filing history list for company number $companyId")
             else -> filingHistory

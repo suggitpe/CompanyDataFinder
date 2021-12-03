@@ -4,13 +4,13 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.slf4j.LoggerFactory
-import org.yaml.snakeyaml.Yaml
+import org.suggs.companydatafinderlib.util.ApplicationConfiguration
 
 @DisplayName("Companies House Proxy allows us to")
-class CompaniesHouseTest {
+class CompaniesHouseProxyTest {
 
     private val log = LoggerFactory.getLogger(this::class.java)
-    private val config = loadConfig()
+    private val config = ApplicationConfiguration("companieshouse-cfg.yml")
     private var companiesHouse = CompaniesHouseProxy(config.get("auth"))
 
     @Test fun `retrieve data using companies house ID`() {
@@ -34,13 +34,13 @@ class CompaniesHouseTest {
     @Test fun `read document metadata from the last filed incorporation information to retrieve the document`() {
         val document = companiesHouse.getLatestFiledDocumentForCategory("02868209", "incorporation")
         log.debug(document.toString())
-        //document.writeTo("/tmp/02868209-incorporation.pdf")
+        document.writeTo("/tmp/02868209-incorporation.pdf")
     }
 
     @Test fun `read document metadata from the last filed address information to retrieve the document`() {
         val document = companiesHouse.getLatestFiledDocumentForCategory("02868209", "address")
         log.debug(document.toString())
-        //document.writeTo("/tmp/02868209-address.pdf")
+        document.writeTo("/tmp/02868209-address.pdf")
     }
 
     @Test fun `read a document from companies house`() {
@@ -49,16 +49,11 @@ class CompaniesHouseTest {
         log.debug(document.toString())
     }
 
-    private fun loadConfig(): AppConfig {
-        return AppConfig(Yaml().load(this.javaClass.classLoader.getResourceAsStream("application.yml")))
-    }
-}
-
-data class AppConfig(val configData: Map<String, String>) {
-    fun get(key: String): String {
-        return when (val data = configData[key]) {
-            null -> throw IllegalStateException("Could not locate configuration data for key: $key")
-            else -> data
-        }
+    @Test fun `playing around trying to understand what documents are stored are where`(){
+        val lastTenFiledDocMetadataUrls = companiesHouse.getCompanyFilingHistoryFor("02868209", "address", 10).latestTenFiledItemsUrls()
+        log.info("Retrieved last ${lastTenFiledDocMetadataUrls.count()} document links")
+        val documents = lastTenFiledDocMetadataUrls.map { companiesHouse.getDocumentMetadataFor(it!!).documentUrl() }.map { companiesHouse.getDocumentFor(it) }
+        log.info("Document urls ${documents.map { it.contentLength }}")
+        documents.forEach { it.writeTo("/tmp/${it.eTag}") }
     }
 }

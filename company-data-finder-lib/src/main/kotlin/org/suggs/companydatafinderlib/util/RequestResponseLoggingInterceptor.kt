@@ -1,4 +1,4 @@
-package org.suggs.companydatafinderlib.companieshouse.interceptors
+package org.suggs.companydatafinderlib.util
 
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpRequest

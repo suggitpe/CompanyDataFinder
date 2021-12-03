@@ -4,7 +4,6 @@ jar {
 }
 
 dependencies {
-    implementation libs.springBootStarterWeb
-    
-    testImplementation libs.snakeYaml
+    implementation libs.springBootStarterWeb,
+            libs.snakeYaml
 }

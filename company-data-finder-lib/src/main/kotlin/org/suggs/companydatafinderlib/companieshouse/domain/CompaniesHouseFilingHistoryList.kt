@@ -22,6 +22,11 @@ data class CompaniesHouseFilingHistoryList(@JsonProperty("start_index") val star
             else -> url
         }
     }
+
+    fun latestTenFiledItemsUrls(): List<String?> {
+        return items.sortedBy { it.date }.take(10).map { it.links["document_metadata"] }
+    }
+
 }
 
 /**
